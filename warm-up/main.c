@@ -5,15 +5,15 @@
 int main(int argc, char *argv[]) {
     int nthreads, tid;
     
-    // начало параллельного региона
+    // parallel region start
     #pragma omp parallel private(nthreads, tid)
     {
-        // получение идентификатора потока
+        // getting thread number
         tid = omp_get_thread_num();
         printf("Hello from thread = %d\n", tid);
         
         if (tid == 0) {
-            // функция главного потока
+            // master thread function
             nthreads = omp_get_num_threads();
             printf("Number of threads = %d\n", nthreads);
         }
