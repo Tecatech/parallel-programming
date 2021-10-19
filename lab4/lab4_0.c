@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 int main(int argc, char **argv) {
-    double start_time, end_time, tick;
+    double tick;
     
     omp_sched_t type;
     int chunk;
