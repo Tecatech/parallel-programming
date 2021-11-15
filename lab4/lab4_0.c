@@ -9,8 +9,8 @@ int main(int argc, char **argv) {
     
     printf("=======================================\nOpenMP: %d\n=======================================\n", _OPENMP);
     
-    printf("=======================================\nAvailable processors amount: %d\n", omp_get_num_procs());
-    printf("Available threads amount: %d\n=======================================\n", omp_get_max_threads());
+    printf("=======================================\nAvailable processor amount: %d\n", omp_get_num_procs());
+    printf("Available thread amount: %d\n=======================================\n", omp_get_max_threads());
     
     printf("=======================================\nOMP_DYNAMIC value: %d\n=======================================\n", omp_get_dynamic());
     

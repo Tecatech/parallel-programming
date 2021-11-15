@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
         
         printf("===================================================\ntarget value: %d || occurrence index: %d\n===================================================\n", target, index);
         average_time = average_time / amount;
-        fprintf(stream, "===============================\nThreads amount: %d\nAverage time elapsed: %0.7lf\n===============================\n", threads, average_time);
+        fprintf(stream, "===============================\nThread amount: %d\nAverage time elapsed: %0.7lf\n===============================\n", threads, average_time);
     }
     
     fclose(stream);
