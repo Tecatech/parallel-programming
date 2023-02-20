@@ -5,24 +5,24 @@
 int main(int argc, char **argv) {
     const int count = 10000000; ///< Number of array elements
     
-    int *array = 0;             ///< The array we need to find the max in
-    int max = -1;               ///< The maximal element
+    int *array = 0;             ///< Target array
+    int max = -1;               ///< Maximum element
     
-    int iterations = 0;         ///< Number of iterations to perform
+    int iterations = 0;         ///< Number of iterations
     
-    /* Initialize the RNG */
+    /* Initialize RNG */
     srand(time(NULL));
     
-    /* Determine the OpenMP support */
+    /* Determine OpenMP support */
     printf("===========================================================\nOpenMP: %d\n", _OPENMP);
     
-    /* Generate the random array */
+    /* Generate random array */
     array = (int *)malloc(count * sizeof(int));
     for (int i = 0; i < count; i++) {
         array[i] = rand();
     }
     
-    /* Find the maximal element */
+    /* Find maximum element */
     for (int i = 0; i < count; i++) {
         if (array[i] > max) {
             max = array[i];

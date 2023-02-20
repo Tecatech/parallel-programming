@@ -4,52 +4,52 @@
 
 int main(int argc, char **argv) {
     int ret = -1;                          ///< Return value of MPI call
-    int size = -1;                         ///< Total number of processors to use
-    int rank = -1;                         ///< The processor rank
+    int size = -1;                         ///< Total number of processors
+    int rank = -1;                         ///< Processor rank
     
     const int count = 10000000;            ///< Number of array elements
-    const int random_seed = atoi(argv[1]); ///< RNG seed (random number generator)
+    const int random_seed = atoi(argv[1]); ///< RNG seed (Random Number Generator)
     
-    int *array = 0;                        ///< The array we need to find the max in
-    int lmax = -1;                         ///< The local maximum
-    int max = -1;                          ///< The maximal element
+    int *array = 0;                        ///< Target array
+    int lmax = -1;                         ///< Local maximum
+    int max = -1;                          ///< Maximum element
     
-    double start_time, end_time;           ///< The starting and the ending timepoints
+    double start_time, end_time;           ///< Starting and ending time points
     
-    /* Initialize the MPI */
+    /* Initialize MPI */
     ret = MPI_Init(&argc, &argv);
     if (!rank) {
         printf("MPI_Init return value: %d\n", ret);
         exit(0);
     }
     
-    /* Determine the processor count */
+    /* Determine processor count */
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     
-    /* Determine the rank count */
+    /* Determine rank count */
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     
-    /* Allocate the array */
+    /* Allocate array */
     array = (int *)malloc(count * sizeof(int));
     
-    /* Generate the array from master thread */
+    /* Generate array from master thread */
     if (!rank) {
-        /* Initialize the RNG */
+        /* Initialize RNG */
         srand(random_seed);
         
-        /* Generate the random array */
+        /* Generate random array */
         for (int i = 0; i < count; i++) {
             array[i] = rand();
         }
     }
     
-    /* Send the array to all other processors */
+    /* Send array to all other processors */
     MPI_Bcast(array, count, MPI_INTEGER, 0, MPI_COMM_WORLD);
     
     const int wstart = rank * count / size;
     const int wend = (rank + 1) * count / size;
     
-    /* Find the maximal element */
+    /* Find maximum element */
     start_time = MPI_Wtime();
     for (int i = wstart; i < wend; i++) {
         if (array[i] > lmax) {

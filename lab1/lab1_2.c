@@ -3,27 +3,27 @@
 
 int main(int argc, char **argv) {
     const int count = 10000000;            ///< Number of array elements
-    const int threads = atoi(argv[1]);     ///< Number of parallel threads to use
-    const int random_seed = atoi(argv[2]); ///< RNG seed (random number generator)
+    const int threads = atoi(argv[1]);     ///< Number of parallel threads
+    const int random_seed = atoi(argv[2]); ///< RNG seed (Random Number Generator)
     
-    int *array = 0;                        ///< The array we need to find the max in
-    int max = -1;                          ///< The maximal element
+    int *array = 0;                        ///< Target array
+    int max = -1;                          ///< Maximum element
     
-    int iterations;                        ///< Number of iterations to perform
+    int iterations;                        ///< Number of iterations
     
-    /* Initialize the RNG */
+    /* Initialize RNG */
     srand(random_seed);
     
-    /* Determine the OpenMP support */
+    /* Determine OpenMP support */
     printf("===========================================================\nOpenMP: %d\n", _OPENMP);
     
-    /* Generate the random array */
+    /* Generate random array */
     array = (int *)malloc(count * sizeof(int));
     for (int i = 0; i < count; i++) {
         array[i] = rand();
     }
     
-    /* Find the maximal element */
+    /* Find maximum element */
     #pragma omp parallel num_threads(threads) private(iterations) shared(array, count) reduction(max: max) default(none)
     {
         iterations = 0;
